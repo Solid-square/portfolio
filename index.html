@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ammar Zaim Bin Sazili — AI Engineer / Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E13;
+    --panel:#12161D;
+    --panel-2:#161B23;
+    --line:#242B35;
+    --text:#E8ECEF;
+    --muted:#828E9A;
+    --amber:#E8A33D;
+    --amber-dim:#8A6423;
+    --green:#6FCF97;
+    --red:#E85D4C;
+    --radius:3px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.65; overflow-x:hidden; }
+  ::selection{ background:var(--amber-dim); color:#fff; }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; border-radius:var(--radius); }
+  h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:-0.01em; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
+  section{ padding:90px 0; border-bottom:1px solid var(--line); }
+  .tag{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--amber); letter-spacing:0.08em; display:block; margin-bottom:14px; }
+
+  /* Nav */
+  nav{ position:fixed; top:0; left:0; right:0; z-index:50; background:rgba(11,14,19,0.88); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:62px; }
+  .brand{ font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--amber); }
+  .navlinks{ display:flex; gap:26px; font-size:13px; font-family:'JetBrains Mono',monospace; color:var(--muted); }
+  .navlinks a:hover{ color:var(--amber); }
+  @media (max-width:680px){ .navlinks{ display:none; } }
+
+  /* Hero */
+  .hero{ min-height:92vh; display:flex; align-items:center; padding-top:80px; padding-bottom:40px; }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center; }
+  @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; } }
+  .hi-tag{ font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--amber); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .hi-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--amber); animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+  .hero h1{ font-size:clamp(32px,5vw,52px); line-height:1.1; margin-bottom:20px; }
+  .hero h1 .amber{ color:var(--amber); }
+  .hero p.lede{ color:var(--muted); font-size:16px; max-width:520px; margin-bottom:30px; }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:30px; }
+  .btn{ font-family:'JetBrains Mono',monospace; font-size:13px; padding:12px 22px; border-radius:var(--radius); border:1px solid var(--line); }
+  .btn.primary{ background:var(--amber); color:#0B0E13; border-color:var(--amber); font-weight:600; }
+  .btn.ghost{ color:var(--text); }
+  .btn.ghost:hover{ border-color:var(--amber); }
+  .social-row{ display:flex; gap:12px; }
+  .social-icon{ width:38px; height:38px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color .2s; }
+  .social-icon:hover{ border-color:var(--amber); }
+  .social-icon svg{ width:16px; height:16px; stroke:var(--text); fill:none; }
+
+  /* Hero photo + skeleton overlay */
+  .photo-frame{ position:relative; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--panel); }
+  .photo-frame img{ width:100%; display:block; border-radius:0; }
+  .skeleton-overlay{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .skeleton-overlay line{ stroke:var(--amber); stroke-width:1.4; opacity:0.85; }
+  .skeleton-overlay circle{ fill:var(--amber); opacity:0.95; }
+  .skeleton-overlay circle.pulse{ animation:dotpulse 2.2s ease-in-out infinite; }
+  @keyframes dotpulse{ 0%,100%{ r:3.2; opacity:0.95;} 50%{ r:4.4; opacity:0.55;} }
+  .scan-line{ position:absolute; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--amber), transparent); animation:scan 4s ease-in-out infinite; opacity:0.7; }
+  @keyframes scan{ 0%{ top:6%; } 50%{ top:92%; } 100%{ top:6%; } }
+  .detect-badge{
+    position:absolute; top:14px; left:14px; background:rgba(11,14,19,0.85); border:1px solid var(--amber-dim);
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--amber); padding:6px 10px; border-radius:2px;
+  }
+  .detect-badge .conf{ color:var(--green); }
+  @media (prefers-reduced-motion: reduce){
+    .hi-tag .dot, .skeleton-overlay circle.pulse, .scan-line{ animation:none; }
+  }
+
+  /* About */
+  .about-grid{ display:grid; grid-template-columns:1fr; gap:20px; }
+  .about-grid p{ color:var(--muted); margin-bottom:14px; font-size:15px; max-width:720px; }
+  .stat-list{ margin-top:10px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .stat{ padding:16px 18px; background:var(--bg); }
+  .stat .label{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; }
+  .stat .value{ font-size:14px; margin-top:4px; }
+
+  /* Projects */
+  .project{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:32px; margin-bottom:22px; position:relative; }
+  .project::before{ content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--amber-dim); }
+  .project.featured::before{ background:var(--amber); }
+  .project-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:12px; }
+  .project-top h3{ font-size:21px; }
+  .status{ font-family:'JetBrains Mono',monospace; font-size:10.5px; padding:4px 10px; border:1px solid var(--amber-dim); color:var(--amber); border-radius:20px; white-space:nowrap; }
+  .project p.desc{ color:var(--muted); font-size:14.5px; margin-bottom:16px; max-width:700px; }
+  .stack{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+  .chip{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); border:1px solid var(--line); padding:5px 10px; border-radius:20px; }
+  .notice{
+    border:1px solid var(--amber-dim); background:#1A140A; color:var(--amber);
+    font-family:'JetBrains Mono',monospace; font-size:12px; padding:10px 14px; border-radius:var(--radius);
+    margin-bottom:18px; line-height:1.6;
+  }
+  .metric-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
+  .metric{ border:1px solid var(--line); border-radius:var(--radius); padding:10px 14px; background:var(--bg); }
+  .metric .num{ font-family:'JetBrains Mono',monospace; font-size:18px; color:var(--amber); }
+  .metric .lbl{ font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); text-transform:uppercase; }
+  .shot-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:6px; }
+  .shot-grid.two{ grid-template-columns:repeat(2,1fr); }
+  .shot-grid.four{ grid-template-columns:repeat(4,1fr); }
+  @media (max-width:700px){ .shot-grid, .shot-grid.four{ grid-template-columns:repeat(2,1fr); } }
+  .shot{ border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--bg); }
+  .shot img{ width:100%; height:150px; object-fit:cover; display:block; border-radius:0; }
+  .shot.tall img{ height:220px; }
+  .shot .cap{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); padding:7px 9px; border-top:1px solid var(--line); }
+  .img-slot{
+    border:1px dashed var(--amber-dim); border-radius:var(--radius); padding:16px 18px;
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); background:var(--bg);
+    margin-top:8px; line-height:1.6;
+  }
+  .img-slot b{ color:var(--amber); }
+
+  /* Skills */
+  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .skill-cat{ background:var(--bg); padding:26px; }
+  .skill-cat h4{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--amber); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; }
+  .skill-cat ul{ list-style:none; }
+  .skill-cat li{ font-size:14px; color:var(--muted); padding:5px 0; }
+  .skill-cat li::before{ content:'— '; color:var(--line); }
+
+  /* Experience */
+  .exp-item{ padding:20px 0; border-top:1px solid var(--line); }
+  .exp-item:last-child{ border-bottom:1px solid var(--line); }
+  .exp-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:6px; }
+  .exp-top h4{ font-size:15.5px; }
+  .exp-top .when{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); }
+  .exp-item .role{ font-size:13px; color:var(--amber); margin-bottom:8px; }
+  .exp-item p{ color:var(--muted); font-size:14px; }
+
+  /* Education */
+  .edu-item{ display:flex; gap:24px; padding:20px 0; border-top:1px solid var(--line); }
+  .edu-item:last-child{ border-bottom:1px solid var(--line); }
+  .edu-item .yr{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--amber); width:150px; flex-shrink:0; padding-top:2px; }
+  .edu-item h4{ font-size:15.5px; margin-bottom:4px; }
+  .edu-item p{ color:var(--muted); font-size:13.5px; }
+
+  /* Certs */
+  .cert-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:24px; }
+  .cert{ border:1px solid var(--line); border-radius:var(--radius); padding:20px; background:var(--panel); }
+  .cert h5{ font-size:14px; margin-bottom:6px; }
+  .cert p{ color:var(--muted); font-size:13px; }
+
+  /* Carousel */
+  .carousel{ position:relative; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--bg); aspect-ratio:16/10; }
+  .carousel-track{ position:relative; width:100%; height:100%; }
+  .carousel-track img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:0; opacity:0; transition:opacity 0.9s ease; }
+  .carousel-track img.active{ opacity:1; }
+  .carousel-dots{ position:absolute; bottom:10px; left:0; right:0; display:flex; justify-content:center; gap:6px; }
+  .carousel-dots .cdot{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.35); cursor:pointer; transition:background .2s; }
+  .carousel-dots .cdot.active{ background:var(--amber); }
+  .carousel-count{ position:absolute; top:10px; right:10px; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--amber); background:rgba(11,14,19,0.75); padding:3px 8px; border-radius:20px; border:1px solid var(--amber-dim); }
+
+  /* Beyond the classroom */
+  .beyond-item{ border:1px solid var(--line); border-radius:var(--radius); padding:24px; background:var(--panel); margin-bottom:18px; }
+  .beyond-item h5{ font-size:15px; margin-bottom:6px; }
+  .beyond-item .when{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--amber); margin-bottom:8px; display:block; }
+  .beyond-item p{ color:var(--muted); font-size:13.5px; margin-bottom:14px; }
+
+  /* Contact */
+  .contact h2{ font-size:clamp(26px,4.6vw,42px); max-width:600px; margin-bottom:18px; }
+  .contact p{ color:var(--muted); max-width:480px; margin-bottom:30px; }
+  .contact-links{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  footer{ padding:28px 0; }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+  footer p{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">AMMAR<span style="color:var(--red)">.</span>ZAIM</div>
+    <div class="navlinks">
+      <a href="#about">ABOUT</a>
+      <a href="#projects">PROJECTS</a>
+      <a href="#skills">SKILLS</a>
+      <a href="#experience">EXPERIENCE</a>
+      <a href="#education">EDUCATION</a>
+      <a href="#beyond">BEYOND</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hi-tag"><span class="dot"></span> Hi, I'm Ammar</div>
+        <h1>AI Engineer<br>/ <span class="amber">Data Analyst</span></h1>
+        <p class="lede">Final-year AI student at UTeM. I build systems that watch, predict, and flag — real-time behaviour detection, threat monitoring, parking-demand prediction, and inventory logic — and get them running outside the notebook, not just performing well inside one.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#projects">View Projects →</a>
+          <a class="btn ghost" href="#contact">Get in Touch</a>
+        </div>
+        <div class="social-row">
+          <a class="social-icon" href="mailto:ammsazili@gmail.com" title="Email" target="_blank">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+          </a>
+          <a class="social-icon" href="https://github.com/Solid-square" title="GitHub" target="_blank">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+          </a>
+          <a class="social-icon" href="https://www.linkedin.com/in/ammarzaim" title="LinkedIn" target="_blank">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8h4v1.5A6 6 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="photo-frame">
+        <img src="assets/headshot.jpg" alt="Ammar Zaim Bin Sazili">
+        <svg class="skeleton-overlay" viewBox="0 0 100 150" preserveAspectRatio="none">
+          <line x1="49" y1="8" x2="49" y2="69"/>
+          <line x1="49" y1="69" x2="12" y2="93"/>
+          <line x1="49" y1="69" x2="85" y2="84"/>
+          <line x1="12" y1="93" x2="85" y2="84"/>
+          <line x1="49" y1="69" x2="49" y2="117"/>
+          <circle cx="42" cy="34" r="1.4"/>
+          <circle cx="56" cy="32" r="1.4"/>
+          <circle class="pulse" cx="49" cy="8" r="3"/>
+          <circle class="pulse" cx="49" cy="69" r="3"/>
+          <circle class="pulse" cx="12" cy="93" r="3"/>
+          <circle class="pulse" cx="85" cy="84" r="3"/>
+          <circle class="pulse" cx="49" cy="117" r="3"/>
+        </svg>
+        <div class="scan-line"></div>
+        <div class="detect-badge">person(ammar): <span class="conf">0.99</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <span class="tag">01 / About</span>
+    <div class="about-grid">
+      <p>I'm a final-year Bachelor of Computer Science (Artificial Intelligence) student at Universiti Teknikal Malaysia Melaka, majoring in AI development with a minor in data analytics.</p>
+      <p>My work sits at the intersection of applied machine learning and systems that have to survive contact with the real world — cameras with bad lighting, messy municipal datasets, database logic that needs to hold up under real usage. I care more about a model working reliably than a model that only looks good on a benchmark.</p>
+      <p>Outside of coursework, I'm Treasurer of UTeM's Artificial Intelligence Club and help run AI outreach sessions for local schoolchildren, workshops for junior students, and industry visits with the club.</p>
+      <div class="stat-list">
+        <div class="stat"><div class="label">Programme</div><div class="value">B.CS (Artificial Intelligence), UTeM — expected graduation March 2027</div></div>
+        <div class="stat"><div class="label">Available from</div><div class="value">28 September 2026</div></div>
+        <div class="stat"><div class="label">Core stack</div><div class="value">Python, PyTorch/TensorFlow, C++, SQL, Tableau/Power BI, GCP</div></div>
+        <div class="stat"><div class="label">Location</div><div class="value">Seri Manjung, Perak, Malaysia</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <span class="tag">02 / Projects</span>
+    <h2 style="font-size:clamp(24px,4vw,34px); margin-bottom:10px;">Selected work</h2>
+    <p style="color:var(--muted); max-width:600px; margin-bottom:36px;">Four applied systems spanning computer vision, surveillance, geospatial prediction, and database-driven logistics.</p>
+
+    <div class="project featured">
+      <div class="project-top">
+        <h3>Warden — ClassroomSense AI</h3>
+        <span class="status">Final Year Project · In Progress</span>
+      </div>
+      <div class="notice">This project is still under active development. Live testing is ongoing and the dashboard shown below is a working draft, not a finished product.</div>
+      <p class="desc">A privacy-preserving classroom monitoring system that recognises student activity and flags potential violence in real time using skeleton keypoints instead of raw video — built with two TCN models (16-class activity recognition, binary violence detection) and deployed through a live Flask dashboard.</p>
+      <div class="stack">
+        <span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">MediaPipe</span><span class="chip">TCN</span><span class="chip">Flask</span>
+      </div>
+      <div class="shot-grid four">
+        <div class="shot"><img src="assets/warden_architecture.jpg" alt="Pipeline architecture"><div class="cap">System pipeline</div></div>
+        <div class="shot"><img src="assets/warden_preprocessing.jpg" alt="Skeleton preprocessing"><div class="cap">Skeleton preprocessing</div></div>
+        <div class="shot"><img src="assets/warden_models.jpg" alt="Model architecture"><div class="cap">TCN model comparison</div></div>
+        <div class="shot"><img src="assets/warden_inference.jpg" alt="Inference loop"><div class="cap">Real-time inference loop</div></div>
+      </div>
+      <div class="shot-grid two" style="margin-top:10px;">
+        <div class="shot tall"><img src="assets/warden_dashboard.jpg" alt="Live dashboard"><div class="cap">Live monitoring dashboard (draft)</div></div>
+        <div class="shot tall"><img src="assets/warden_engagement.jpg" alt="Engagement chart"><div class="cap">Session engagement breakdown</div></div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>NeuroGuard — Smart CCTV Surveillance System</h3>
+        <span class="status">Workshop 2 · Team Project</span>
+      </div>
+      <p class="desc">AI-assisted CCTV system combining YOLOv8 identity detection, MediaPipe pose analysis, optical-flow-based violence detection, and a custom CNN for weapon recognition — with Firebase-backed real-time alerts pushed to a companion mobile app. My part on the team was the motion detection and object detection modules; threat detection logic was built by a teammate.</p>
+      <div class="stack">
+        <span class="chip">YOLOv8</span><span class="chip">MediaPipe</span><span class="chip">OpenCV</span><span class="chip">Firebase</span>
+      </div>
+      <div class="shot-grid two">
+        <div class="shot"><img src="assets/neuroguard_architecture.jpg" alt="System architecture"><div class="cap">System architecture</div></div>
+        <div class="shot"><img src="assets/neuroguard_wireframes.jpg" alt="Mobile app wireframes"><div class="cap">Mobile app wireframes</div></div>
+      </div>
+      <div class="shot-grid" style="margin-top:10px;">
+        <div class="shot"><img src="assets/neuroguard_detection.jpg" alt="Object detection output"><div class="cap">Object detection output</div></div>
+        <div class="shot"><img src="assets/neuroguard_action.jpg" alt="Motion/action recognition"><div class="cap">Motion tracking output</div></div>
+        <div class="shot"><img src="assets/neuroguard_mobile.jpg" alt="Mobile alert"><div class="cap">Mobile alert notification</div></div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>Mappy — Parking &amp; Crowd Prediction for Melaka Heritage Zone</h3>
+        <span class="status">IXORA 2026 · Capstone, Team of 4</span>
+      </div>
+      <p class="desc">Tourists visiting Melaka's heritage hotspots — Klebang, Jonker Walk, A'Famosa, and AEON Bandaraya — have no way to know parking availability or crowd density ahead of time, which drives congestion and hurts the visitor experience. Built on real operational data from Majlis Bandaraya Melaka Bersejarah (MBMB), covering January–September 2025 across 4 parking providers, the team engineered a cleaned dataset of 601,091 records and trained a Random Forest Classifier to predict Busy/Non-Busy occupancy per location, feeding a Power BI dashboard for MBMB city planners.</p>
+      <div class="stack">
+        <span class="chip">Python</span><span class="chip">Random Forest</span><span class="chip">Power BI</span><span class="chip">CRISP-DM</span>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><div class="num">78.63%</div><div class="lbl">Forecast Accuracy</div></div>
+        <div class="metric"><div class="num">72.44%</div><div class="lbl">Sensor Coverage</div></div>
+        <div class="metric"><div class="num">601K</div><div class="lbl">Cleaned Records</div></div>
+      </div>
+      <div class="shot-grid two">
+        <div class="shot tall"><img src="assets/mappy_overview.jpg" alt="Dashboard overview"><div class="cap">Dashboard overview — occupancy by hour/zone</div></div>
+        <div class="shot tall"><img src="assets/mappy_parking_guide.jpg" alt="Parking guide view"><div class="cap">Parking guide — crowd status by zone</div></div>
+        <div class="shot tall"><img src="assets/mappy_forecast.jpg" alt="Tourist flow forecast"><div class="cap">Tourist flow forecast</div></div>
+        <div class="shot tall"><img src="assets/mappy_sdg_impact.jpg" alt="SDG impact view"><div class="cap">SDG impact summary</div></div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>Animal Food Distribution System</h3>
+        <span class="status">Workshop 1</span>
+      </div>
+      <p class="desc">A C++ console application backed by a MySQL relational database for zoo food logistics — CRUD modules for animal dietary profiles, feeding schedules, inventory tracking, and order management, with route and schedule logic to reduce waste and keep feeding times consistent across species with different dietary needs.</p>
+      <div class="stack">
+        <span class="chip">C++</span><span class="chip">MySQL</span><span class="chip">CRUD Modules</span>
+      </div>
+      <div class="shot-grid">
+        <div class="shot"><img src="assets/zoo_erd.jpg" alt="Entity relationship diagram"><div class="cap">Entity relationship diagram</div></div>
+        <div class="shot"><img src="assets/zoo_menu.jpg" alt="Console main menu"><div class="cap">Console main menu</div></div>
+        <div class="shot"><img src="assets/zoo_animals.jpg" alt="Animal records"><div class="cap">Animal records output</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <span class="tag">03 / Skills</span>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h4>AI &amp; Data Science</h4>
+        <ul><li>Machine Learning Modelling</li><li>Predictive Analytics</li><li>Statistical Analysis</li><li>Feature Engineering</li></ul>
+      </div>
+      <div class="skill-cat">
+        <h4>Data Engineering &amp; Analytics</h4>
+        <ul><li>Python (Pandas/NumPy)</li><li>SQL Database Management</li><li>Data Cleaning</li><li>Tableau / Power BI</li></ul>
+      </div>
+      <div class="skill-cat">
+        <h4>Tools &amp; Frameworks</h4>
+        <ul><li>TensorFlow / PyTorch</li><li>Git / Version Control</li><li>Google Cloud Platform</li><li>SIEM Tools</li></ul>
+      </div>
+      <div class="skill-cat">
+        <h4>IT Security</h4>
+        <ul><li>Network Security</li><li>Risk Assessment</li><li>IAM</li><li>Threat Detection</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <span class="tag">04 / Experience</span>
+    <div class="exp-item">
+      <div class="exp-top"><h4>Computer Hardware &amp; Systems Technician</h4><span class="when mono">Oct 2023 — Present</span></div>
+      <div class="role">Freelance / Independent Contractor</div>
+      <p>Diagnosed and repaired hardware/software faults across 50+ PCs. Handled preventative maintenance including component upgrades, thermal work, malware removal, and automated backup setup.</p>
+    </div>
+    <div class="exp-item">
+      <div class="exp-top"><h4>Kitchen Crew / Barista</h4><span class="when mono">Jul 2020 — Jan 2022</span></div>
+      <div class="role">Bask Bear Coffee (Part-time)</div>
+      <p>Prepared beverages to a consistent quality standard under regular time pressure — the kind of steady, repeatable-process discipline that carries over into production work.</p>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <span class="tag">05 / Education</span>
+    <div class="edu-item">
+      <div class="yr mono">2023 — 2027</div>
+      <div><h4>Bachelor of Computer Science (Artificial Intelligence) with Honours</h4><p>Universiti Teknikal Malaysia Melaka (UTeM) — Major: AI Development, Minor: Data Analytics</p></div>
+    </div>
+    <div class="edu-item">
+      <div class="yr mono">Matriculation</div>
+      <div><h4>Kolej Matrikulasi Perak</h4><p>Science (Computer)</p></div>
+    </div>
+    <div class="edu-item">
+      <div class="yr mono">SPM</div>
+      <div><h4>Kampung Dato' Seri Kamarudin</h4><p>Pure Science</p></div>
+    </div>
+
+    <div class="cert-grid">
+      <div class="cert"><h5>Google Data Analytics — Coursera</h5><p>9-course series: data cleaning, analysis, visualization, SQL, Python, Tableau.</p></div>
+      <div class="cert"><h5>DataCamp</h5><p>Cloud computing, data visualization, data science, Power BI.</p></div>
+      <div class="cert"><h5>FAIX AI Ambassador</h5><p>Faculty of Artificial Intelligence and Computing — certificate of appointment. <span style="color:var(--amber)">Confirm exact title/date with me.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="beyond">
+  <div class="wrap">
+    <span class="tag">06 / Beyond the Classroom</span>
+    <h2 style="font-size:clamp(24px,4vw,34px); margin-bottom:24px;">AI Club and community work</h2>
+
+    <div class="beyond-item">
+      <h5>Treasurer, Artificial Intelligence Club (UTeM)</h5>
+      <span class="when">Ongoing</span>
+      <p>Handled club finances while helping run AI competitions and skill-building programmes. One example: the "AI Help Class" workshop teaching junior students the tools they need for their project environment — Git, MySQL, VS Code, Python, and PyTorch.</p>
+      <div class="shot-grid two">
+        <div class="shot"><img src="assets/extra_aihelpclass.jpg" alt="AI Help Class workshop"><div class="cap">AI Help Class — Workshop 1</div></div>
+      </div>
+    </div>
+
+    <div class="beyond-item">
+      <h5>Conference Affiliate Organiser — 30th EAROPH World Congress &amp; ICT Carnival MBMB 2026</h5>
+      <span class="when">2026</span>
+      <p>Top committee member across 3 events run with the club, in partnership with Majlis Bandaraya Melaka Bersejarah, encouraging the next generation to get into AI.</p>
+      <div class="carousel" data-autoplay="4200">
+        <div class="carousel-track">
+          <img src="assets/gal_carnival_1.jpg" class="active" alt="Karnival ICT MBMB 2026">
+          <img src="assets/gal_carnival_2.jpg" alt="Karnival ICT MBMB 2026">
+          <img src="assets/gal_carnival_3.jpg" alt="Karnival ICT MBMB 2026">
+          <img src="assets/gal_carnival_4.jpg" alt="Karnival ICT MBMB 2026">
+          <img src="assets/gal_carnival_5.jpg" alt="Karnival ICT MBMB 2026">
+          <img src="assets/gal_carnival_6.jpg" alt="Karnival ICT MBMB 2026">
+          <img src="assets/gal_carnival_7.jpg" alt="Karnival ICT MBMB 2026">
+          <img src="assets/gal_carnival_8.jpg" alt="Karnival ICT MBMB 2026">
+          <img src="assets/gal_carnival_9.jpg" alt="Karnival ICT MBMB 2026">
+        </div>
+        <div class="carousel-count mono">9 photos</div>
+        <div class="carousel-dots"></div>
+      </div>
+    </div>
+
+    <div class="beyond-item">
+      <h5>STEM MGSS Outreach</h5>
+      <span class="when">2025</span>
+      <p>Introduced secondary school students to AI and its ethical use, plus basic coding and the fundamentals of ML, LLMs, and VLMs.</p>
+      <div class="carousel" data-autoplay="4200">
+        <div class="carousel-track">
+          <img src="assets/gal_stemmgss_1.jpg" class="active" alt="STEM MGSS session">
+          <img src="assets/gal_stemmgss_2.jpg" alt="STEM MGSS session">
+          <img src="assets/gal_stemmgss_3.jpg" alt="STEM MGSS session">
+          <img src="assets/gal_stemmgss_4.jpg" alt="STEM MGSS session">
+        </div>
+        <div class="carousel-count mono">4 photos</div>
+        <div class="carousel-dots"></div>
+      </div>
+    </div>
+
+    <div class="beyond-item">
+      <h5>AI Outreach Program for Young Learners — Sekolah Rendah Arab (JAIM), Merlimau Pasir</h5>
+      <span class="when">November 2023</span>
+      <p>Ran a SULAM Kepintaran Buatan outreach session introducing primary school students to AI concepts through hands-on activities.</p>
+      <div class="carousel" data-autoplay="4200">
+        <div class="carousel-track">
+          <img src="assets/gal_jaim_1.jpg" class="active" alt="JAIM outreach programme">
+          <img src="assets/gal_jaim_2.jpg" alt="JAIM outreach programme">
+          <img src="assets/gal_jaim_3.jpg" alt="JAIM outreach programme">
+          <img src="assets/gal_jaim_4.jpg" alt="JAIM outreach programme">
+          <img src="assets/gal_jaim_5.jpg" alt="JAIM outreach programme">
+          <img src="assets/gal_jaim_6.jpg" alt="JAIM outreach programme">
+          <img src="assets/gal_jaim_7.jpg" alt="JAIM outreach programme">
+        </div>
+        <div class="carousel-count mono">7 photos</div>
+        <div class="carousel-dots"></div>
+      </div>
+    </div>
+
+    <div class="beyond-item">
+      <h5>Industrial Visits — FIUU by Razer &amp; CelcomDigi Experience Centre</h5>
+      <span class="when">2024 / 2026</span>
+      <p>Club visits to get students familiar with how industry actually works — talks on engineering careers at FIUU by Razer, and a tour of CelcomDigi's Experience Centre covering 5G, AI-powered surveillance, and robotics.</p>
+      <div class="carousel" data-autoplay="4200">
+        <div class="carousel-track">
+          <img src="assets/gal_industrial_1.jpg" class="active" alt="Industrial visit">
+          <img src="assets/gal_industrial_2.jpg" alt="Industrial visit">
+          <img src="assets/gal_industrial_3.jpg" alt="Industrial visit">
+          <img src="assets/gal_industrial_4.jpg" alt="Industrial visit">
+          <img src="assets/gal_industrial_5.jpg" alt="Industrial visit">
+          <img src="assets/gal_industrial_6.jpg" alt="Industrial visit">
+          <img src="assets/gal_industrial_7.jpg" alt="Industrial visit">
+          <img src="assets/gal_industrial_8.jpg" alt="Industrial visit">
+          <img src="assets/gal_industrial_9.jpg" alt="Industrial visit">
+          <img src="assets/gal_industrial_10.jpg" alt="Industrial visit">
+        </div>
+        <div class="carousel-count mono">10 photos</div>
+        <div class="carousel-dots"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="contact">
+      <span class="tag">07 / Contact</span>
+      <h2>Looking for an internship where I can ship real systems, not just prototypes.</h2>
+      <p>Open to AI engineering and data analyst internships.</p>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:ammsazili@gmail.com">Email Me →</a>
+        <a class="btn ghost" href="https://github.com/Solid-square" target="_blank">GitHub</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/ammarzaim" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 AMMAR ZAIM BIN SAZILI</p>
+    <p>Portfolio v3</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.carousel').forEach(function(carousel){
+    const imgs = Array.from(carousel.querySelectorAll('.carousel-track img'));
+    const dotsWrap = carousel.querySelector('.carousel-dots');
+    if(imgs.length <= 1){ if(dotsWrap) dotsWrap.style.display = 'none'; return; }
+    let index = imgs.findIndex(function(im){ return im.classList.contains('active'); });
+    if(index < 0) index = 0;
+
+    imgs.forEach(function(_, i){
+      const dot = document.createElement('span');
+      dot.className = 'cdot' + (i === index ? ' active' : '');
+      dot.addEventListener('click', function(){ show(i); resetTimer(); });
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function show(i){
+      imgs[index].classList.remove('active');
+      dots[index].classList.remove('active');
+      index = (i + imgs.length) % imgs.length;
+      imgs[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
+
+    let timer;
+    function resetTimer(){
+      if(prefersReduced) return;
+      clearInterval(timer);
+      const delay = parseInt(carousel.dataset.autoplay, 10) || 4000;
+      timer = setInterval(function(){ show(index + 1); }, delay);
+    }
+    resetTimer();
+  });
+})();
+</script>
+
+</body>
+</html>
